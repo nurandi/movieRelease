@@ -1,6 +1,4 @@
 library(rtweet)
-library(jsonlite)
-library(mongolite)
 
 app <- Sys.getenv('TWITTER_APP_NAME')
 ck <- Sys.getenv('TWITTER_CONSUMER_API_KEY')
