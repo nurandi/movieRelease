@@ -31,13 +31,9 @@ if(nReleaseToday > 0){
     title <- movie$name
     description <- movie$description
     url <- paste0('https://www.imdb.com', movie$url)
-    
-    cat('Preparing to post to twitter:', title, '\n')
-    
-    cat('Composing status text', '\n')
     text <- sprintf('%s (%s): %s\n%s', toupper(title), todayDate, description, url) 
     
-    cat('Posting to twitter', '\n')
+    cat('Posting to twitter:', text, '\n')
     rtweet::post_tweet(
       status = text,
       token = twitter_token
