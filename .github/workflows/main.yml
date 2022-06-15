@@ -1,0 +1,21 @@
+name: Scrape and Tweet Today Movie Release
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  Scrape-and-Tweet:
+    runs-on: macos-latest
+    env:
+      MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+      - name: Install rvest package
+        run: Rscript -e 'install.packages("rvest", dependencies = TRUE)'
+      - name: Install mongolite package
+        run: Rscript -e 'install.packages("mongolite", dependencies = TRUE)'
+      - name: Scrape new movies and insert into mongo
+        run: Rscript scrape.R
