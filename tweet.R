@@ -46,7 +46,7 @@ if(nReleaseToday > 0){
     cat('Posting to twitter', '\n')
     rtweet::post_tweet(
       status = text,
-      media = 'image.jpg',
+      #media = 'image.jpg',
       token = twitter_token
     )
     
