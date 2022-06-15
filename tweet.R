@@ -32,7 +32,7 @@ if(nReleaseToday > 0){
     title <- movie$name
     description <- movie$description
     url <- paste0('https://www.imdb.com', movie$url)
-    text <- sprintf('??????? %s (%s) ???? %s\n%s', toupper(title), todayDate, description, url) 
+    text <- sprintf('🎦️ %s (%s) 📒 %s\n%s', toupper(title), todayDate, description, url) 
     
     cat('Posting to twitter:', text, '\n')
     rtweet::post_tweet(
