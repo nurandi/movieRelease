@@ -7,13 +7,12 @@ mongo_movie <- mongo(collection = 'id',
                      db = 'imdb_movie',
                      url = conn_string)
 
-
 twitter_token <- rtweet::create_token(
-  app              = 'new-movie-bot',
-  consumer_key     = 'ClWwGOzg4oaWqhr0HE1eUjGyv',
-  consumer_secret  = 'eGd4a1NrTXGTbEWKkXDYi5ObF9AvHtgfsthnkT2QNUOPdzu4zE',
-  access_token     = '1493425084908044288-XLzetRNFO7YiO7XpBT34VDg4BivqAN',
-  access_secret    = 'WZQk6ygTuF0SSdAvHe7EDaZR5WeOSNZOCQ2vyefITiweT'
+  app              = Sys.getenv("TWITTER_APP_NAME"),
+  consumer_key     = Sys.getenv("TWITTER_CONSUMER_API_KEY"),
+  consumer_secret  = Sys.getenv("TWITTER_CONSUMER_API_SECRET"),
+  access_token     = Sys.getenv("TWITTER_ACCESS_TOKEN"),
+  access_secret    = Sys.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 )
 
 todayDate <- format(Sys.Date(), '%d %B %Y')
@@ -57,3 +56,8 @@ if(nReleaseToday > 0){
 } else {
   cat('No movie release today!', '\n')
 }
+
+
+
+
+
