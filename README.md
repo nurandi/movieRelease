@@ -1,4 +1,4 @@
-# Movie Release Today
+# Movie Release Today 🤖
 
 [![](https://img.shields.io/badge/Twitter-@newmoviebot-white?style=flat&labelColor=blue&logo=Twitter&logoColor=white)](https://twitter.com/newmoviebot)
 [![Scrape and Tweet Today Movie Release](https://github.com/nurandi/movieRelease/actions/workflows/main.yml/badge.svg)](https://github.com/nurandi/movieRelease/actions/workflows/main.yml)
@@ -9,7 +9,7 @@ Twitter bot [@newmoviebot](https://www.twitter.com/newmoviebot)'s source code. T
 
 The bot has has two main functionalities that run serially:
 
-+ **Scrape**: Check if there is new movie added into IMDB calendar. If so, scrape movie detail and store the data into MongoDB collection.
++ **Scrape**: Check if there is new movie added into IMDB calendar. If so, scrape movie detail (up to 3 movies daily) and store the data into MongoDB collection.
 + **Tweet**: If there is movie that released today, post new twitter status consist of movie title, description and its IMDB URL.
 
 Creator: [@nurandi](https://www.twitter.com/nurandi)
