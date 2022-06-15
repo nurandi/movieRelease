@@ -25,32 +25,36 @@ nReleaseToday <- nrow(releaseToday)
 if(nReleaseToday > 0){
   
   cat('Found', nReleaseToday, 'new movie release today', '\n')
-  cat('Preparing to post to twitter', '\n')
-  
+
   for(i in 1:nReleaseToday){
     movie <- releaseToday[i,]
     title <- movie$name
     description <- movie$description
     url <- paste0('https://www.imdb.com', movie$url)
-    imageUrl <- movie$image
     actor <- paste(movie$actor[[1]]$name, collapse = ', ')
     genre <- paste( movie$genre[[1]], collapse = ', ')
     
+    cat('Preparing to post to twitter:', title, '\n')
+    
+    cat('Composing status text', '\n')
     text <- sprintf('[%s]\n%s\n%s\nActors: %s\nGenre: %s\n%s', todayDate, title, description, actor, genre, url) 
     
-    cat('Posting to twitter:', title, '\n')
+    cat('Downloading movie poster', '\n')
+    imageUrl <- movie$image
+    download.file(imageUrl,'image.jpg', mode = 'wb')
     
+    cat('Posting to twitter', '\n')
     rtweet::post_tweet(
       status = text,
-      media = imageUrl,
+      media = 'image.jpg',
       token = twitter_token
     )
     
-    Sys.sleep(60)
+    Sys.sleep(5)
   }
   
 } else {
-  cat('No movie release today!')
+  cat('No movie release today!', '\n')
 }
 
 
