@@ -2,7 +2,7 @@ name: Scrape and Tweet Today Movie Release
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '30 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -10,6 +10,8 @@ jobs:
     runs-on: macos-latest
     env:
       MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
+      MONGO_COLLECTION_NAME: ${{ secrets.MONGO_COLLECTION_NAME }}
+      MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME }}
       TWITTER_APP_NAME: ${{ secrets.TWITTER_APP_NAME }}
       TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
       TWITTER_CONSUMER_API_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
