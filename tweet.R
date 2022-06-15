@@ -29,12 +29,12 @@ if(nReleaseToday > 0){
   
   for(i in 1:nReleaseToday){
     movie <- releaseToday[i,]
-    title <- movie['name']
-    description <- movie['description']
-    url <- paste0('https://www.imdb.com', movie['url'])
-    imageUrl <- movie['image']
-    actor <- paste(movie['actor']$actor[[1]]$name, collapse = ', ')
-    genre <- paste( movie['genre']$genre[[1]], collapse = ', ')
+    title <- movie$name
+    description <- movie$description
+    url <- paste0('https://www.imdb.com', movie$url)
+    imageUrl <- movie$image
+    actor <- paste(movie$actor[[1]]$name, collapse = ', ')
+    genre <- paste( movie$genre[[1]], collapse = ', ')
     
     text <- sprintf('[%s]\n%s\n%s\nActors: %s\nGenre: %s\n%s', todayDate, title, description, actor, genre, url) 
     
