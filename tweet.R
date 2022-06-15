@@ -3,9 +3,9 @@ library(jsonlite)
 library(mongolite)
 
 conn_string <- Sys.getenv("MONGO_CONNECTION_STRING")
-mongo_movie <- mongo(collection = 'id',
-                     db = 'imdb_movie',
-                     url = conn_string)
+mongo_movie <- mongo(collection = Sys.getenv("MONGO_COLLECTION_NAME"),
+                     db         = Sys.getenv("MONGO_DB_NAME"),
+                     url        = conn_string)
 
 twitter_token <- rtweet::create_token(
   app              = Sys.getenv("TWITTER_APP_NAME"),
@@ -32,7 +32,7 @@ if(nReleaseToday > 0){
     title <- movie$name
     description <- movie$description
     url <- paste0('https://www.imdb.com', movie$url)
-    text <- sprintf('%s (%s): %s\n%s', toupper(title), todayDate, description, url) 
+    text <- sprintf('??????? %s (%s) ???? %s\n%s', toupper(title), todayDate, description, url) 
     
     cat('Posting to twitter:', text, '\n')
     rtweet::post_tweet(
