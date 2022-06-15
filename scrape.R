@@ -39,7 +39,7 @@ if(nScraped == 0){
 
 maxScrape <- 3
 nUnscraped <- length(unscrapedUrls)
-nScrape <- min(nUrl, maxScrape)
+nScrape <- min(nUnscraped, maxScrape)
 
 if(nUnscraped > 0){
   cat('Found', nUnscraped, 'new movie to scrape', '\n')
