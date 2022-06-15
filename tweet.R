@@ -36,7 +36,7 @@ if(nReleaseToday > 0){
     
     # if text too long
     if(nchar(text) > 280){
-      text <- sprintf('%s...\n%s', substr(text,1,240), url)
+      text <- sprintf('%s~\n%s', substr(text,1,235), url)
     }
     
     cat('Posting to twitter:', text, '\n')
