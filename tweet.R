@@ -15,6 +15,8 @@ twitter_token <- rtweet::create_token(
   access_secret    = Sys.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 )
 
+search_tweets(q = "indonesia", n = 1, token = twitter_token)
+
 todayDate <- format(Sys.Date(), '%d %B %Y')
 todayDate <- '16 June 2022'
 query <- list(releaseDate = todayDate)
