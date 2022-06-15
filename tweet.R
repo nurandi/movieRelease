@@ -56,8 +56,3 @@ if(nReleaseToday > 0){
 } else {
   cat('No movie release today!', '\n')
 }
-
-
-
-
-
