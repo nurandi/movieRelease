@@ -45,10 +45,12 @@ if(nReleaseToday > 0){
       media = imageUrl,
       token = twitter_token
     )
-  } else {
-    cat('No movie release today!')
+    
+    Sys.sleep(60)
   }
   
+} else {
+  cat('No movie release today!')
 }
 
 
