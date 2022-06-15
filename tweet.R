@@ -17,7 +17,6 @@ twitter_token <- rtweet::create_token(
 )
 
 todayDate <- format(Sys.Date(), '%d %B %Y')
-todayDate <- '16 June 2022'
 query <- list(releaseDate = todayDate)
 
 releaseToday <- mongo_movie$find(toJSON(query, auto_unbox = T))
