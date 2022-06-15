@@ -23,10 +23,10 @@ movieUrls <- read_html(calendarUrl) %>%
 # connect to mongo collection
 # db and collection are pre-created
 
-conn_string <- Sys.getenv('MONGO_CONNECTION_STRING')
-mongo_movie <- mongo(collection = 'id',
-                     db = 'imdb_movie',
-                     url = conn_string)
+conn_string <- Sys.getenv("MONGO_CONNECTION_STRING")
+mongo_movie <- mongo(collection = Sys.getenv("MONGO_COLLECTION_NAME"),
+                     db         = Sys.getenv("MONGO_DB_NAME"),
+                     url        = conn_string)
 
 # check
 
