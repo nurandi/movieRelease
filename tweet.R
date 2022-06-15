@@ -34,6 +34,11 @@ if(nReleaseToday > 0){
     url <- paste0('https://www.imdb.com', movie$url)
     text <- sprintf('🎦️ %s (%s) 📒 %s\n%s', toupper(title), todayDate, description, url) 
     
+    # if text too long
+    if(nchar(text) > 280){
+      text <- sprintf('%s...\n%s', substr(text,1,240), url)
+    }
+    
     cat('Posting to twitter:', text, '\n')
     rtweet::post_tweet(
       status = text,
