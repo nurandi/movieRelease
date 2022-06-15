@@ -8,13 +8,4 @@ as <- Sys.getenv('TWITTER_ACCESS_TOKEN_SECRET')
 
 cat(app, ck, cs, at, as, '\n')
 
-twitter_token <- rtweet::create_token(
-  app              = app,
-  consumer_key     = ck,
-  consumer_secret  = cs,
-  access_token     = at,
-  access_secret    = as
-)
-
-search_tweets("indonesia", n=1, token = twitter_token)
 
