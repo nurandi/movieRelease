@@ -1,10 +1,13 @@
 library(rvest)
 library(mongolite)
+library(jsonlite)
 
 # step 1: get movie URL from release calendar
 
-region <- 'ID'
-calendarUrl <- paste('https://www.imdb.com/calendar?region', region, sep = '=')
+countryId <- 'ID'
+coutryName <- 'Indonesia'
+
+calendarUrl <- paste('https://www.imdb.com/calendar?region', countryId, sep = '=')
 
 movieUrls <- read_html(calendarUrl) %>%
   html_element('#main') %>%
@@ -46,12 +49,25 @@ if(nUnscraped > 0){
   cat('Preparing to scrape', nScrape, 'new movies of', nUnscraped, '\n')
   for(movieUrl in unscrapedUrls[1:nScrape]){
     cat('Scraping:', movieUrl, '\n')
+    
+    # movie detail
     movieFullUrl <- paste0('https://www.imdb.com', movieUrl)
     movieDetail <- read_html(movieFullUrl) %>%
       html_element('script') %>% 
       html_element(xpath = '//*[@type ="application/ld+json"]') %>% 
-      html_text()
-    mongo_movie$insert(movieDetail)
+      html_text() %>%
+      fromJSON()
+    
+    # release date
+    movieReleaseUrl <- paste0(movieFullUrl, 'releaseinfo')
+    movieReleaseDate <- read_html(movieReleaseUrl) %>%
+      html_element('#releaseinfo_content') %>% 
+      html_table() %>% 
+      subset(X1 == coutryName) %>% `[[`(1,2)
+    movieDetail$releaseDate <- movieReleaseDate
+    
+    # insert
+    mongo_movie$insert(toJSON(movieDetail, auto_unbox = T))
   }
 } else {
   cat('No new movie to scrape', '\n')
