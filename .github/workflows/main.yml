@@ -17,6 +17,8 @@ jobs:
         run: Rscript -e 'install.packages("rvest", dependencies = TRUE)'
       - name: Install mongolite package
         run: Rscript -e 'install.packages("mongolite", dependencies = TRUE)'
+      - name: Install rtweet package
+        run: Rscript -e 'install.packages("rtweet", dependencies = TRUE)'
       - name: Scrape new movies and insert into mongo
         run: Rscript scrape.R
       - name: Tweet today movie release
