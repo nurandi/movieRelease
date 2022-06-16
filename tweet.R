@@ -30,17 +30,25 @@ if(nReleaseToday > 0){
     movie <- releaseToday[i,]
     title <- movie$name
     description <- movie$description
-    url <- paste0('https://www.imdb.com', movie$url)
-    text <- sprintf('🎦️ %s (%s) 📒 %s\n%s', toupper(title), todayDate, description, url) 
+    url <- paste0('imdb.com', movie$url)
+    text <- sprintf('🎦 %s (%s) 📒 %s', toupper(title), todayDate, description) 
     
-    # if text too long
-    if(nchar(text) > 280){
-      text <- sprintf('%s~\n%s', substr(text,1,235), url)
+    # if text too long (>280)
+    max_text <- 280
+    if((nchar(text) + nchar(url) + 1) > max_text){
+      text <- sprintf('%s~ %s', substr(text,1,(max_text-nchar(url)-2)), url)
+    } else {
+      text <- sprintf('%s %s', text, url)
     }
+    
+    # download image
+    imageUrl <- movie$image
+    download.file(imageUrl,'image.jpg', mode = 'wb')
     
     cat('Posting to twitter:', text, '\n')
     rtweet::post_tweet(
       status = text,
+      media = 'image.jpg',
       token = twitter_token
     )
     
