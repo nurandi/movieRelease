@@ -2,7 +2,7 @@ name: Scrape and Tweet
 
 on:
   schedule:
-    - cron: '50 2 * * *'
+    - cron: '0/15 * * * *'
 
 jobs:
   Scrape-and-Tweet:
