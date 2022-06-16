@@ -1,6 +1,7 @@
 library(rtweet)
 library(jsonlite)
 library(mongolite)
+library(textulits)
 
 conn_string <- Sys.getenv("MONGO_CONNECTION_STRING")
 mongo_movie <- mongo(collection = Sys.getenv("MONGO_COLLECTION_NAME"),
@@ -28,8 +29,8 @@ if(nReleaseToday > 0){
 
   for(i in 1:nReleaseToday){
     movie <- releaseToday[i,]
-    title <- movie$name
-    description <- movie$description
+    title <- HTMLdecode(movie$name)
+    description <- HTMLdecode(movie$description)
     url <- paste0('imdb.com', movie$url)
     text <- sprintf('🎦 %s (%s) 📒 %s', toupper(title), todayDate, description) 
     
