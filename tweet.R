@@ -1,7 +1,7 @@
 library(rtweet)
 library(jsonlite)
 library(mongolite)
-library(textulits)
+library(textutils)
 
 conn_string <- Sys.getenv("MONGO_CONNECTION_STRING")
 mongo_movie <- mongo(collection = Sys.getenv("MONGO_COLLECTION_NAME"),
