@@ -17,22 +17,22 @@ twitter_token <- rtweet::create_token(
   set_renv         = FALSE
 )
 
-rtweet::post_tweet(status = "test test 123", token = twitter_token)
-
 # get timelines
-# myTimelines <- rtweet::get_my_timeline(token = twitter_token)$text
+# myTimelines <- rtweet::get_my_timeline(token = twitter_token)$text # why this wont work??
 myTimelines <- rtweet::get_timeline(Sys.getenv("TWITTER_USER_NAME"), token = twitter_token)
 myTimelines <- myTimelines$text
 
-todayDate <- format(Sys.Date(), '%d %B %Y')
-query <- list(releaseDate = todayDate)
+tz <- 7
+todayDate <- format(Sys.time() +tz*60*60, '%d %B %Y') #WIB+7
 
+# get data from mongo
+query <- list(releaseDate = todayDate)
 releaseToday <- mongo_movie$find(toJSON(query, auto_unbox = T))
 nReleaseToday <- nrow(releaseToday)
 
 if(nReleaseToday > 0){
   
-  cat('Found', nReleaseToday, 'new movie release today', '\n')
+  cat('Found', nReleaseToday, 'new movie release today', todayDate, '\n')
 
   for(i in 1:nReleaseToday){
     movie <- releaseToday[i,]
@@ -70,5 +70,5 @@ if(nReleaseToday > 0){
   }
   
 } else {
-  cat('No movie release today!', '\n')
+  cat('No movie release today', todayDate', '\n')
 }
