@@ -17,6 +17,9 @@ twitter_token <- rtweet::create_token(
   set_renv         = FALSE
 )
 
+# get timelines
+myTimelines <- get_my_timeline()$text
+
 todayDate <- format(Sys.Date(), '%d %B %Y')
 query <- list(releaseDate = todayDate)
 
@@ -29,30 +32,36 @@ if(nReleaseToday > 0){
 
   for(i in 1:nReleaseToday){
     movie <- releaseToday[i,]
-    title <- HTMLdecode(movie$name)
-    description <- HTMLdecode(movie$description)
-    url <- paste0('imdb.com', movie$url)
-    text <- sprintf('🎦 %s (%s) 📒 %s', toupper(title), todayDate, description) 
+    title <- toupper(HTMLdecode(movie$name))
+    cat('\nChecking and preparing post for:', title,'\n')
     
-    # if text too long (>280)
-    max_text <- 280
-    if((nchar(text) + nchar(url) + 1) > max_text){
-      text <- sprintf('%s~ %s', substr(text,1,(max_text-nchar(url)-2)), url)
+    # post only if it hasnt posted before
+    if(sum(grepl(sprintf('%s (%s)', title, todayDate), myTimelines)) > 0 ){
+      description <- HTMLdecode(movie$description)
+      url <- paste0('imdb.com', movie$url)
+      text <- sprintf('🎦 %s (%s) 📒 %s', title, todayDate, description) 
+      
+      # if text too long (>280)
+      max_text <- 280
+      if((nchar(text) + nchar(url) + 1) > max_text){
+        text <- sprintf('%s~ %s', substr(text,1,(max_text-nchar(url)-2)), url)
+      } else {
+        text <- sprintf('%s %s', text, url)
+      }
+      
+      # download image
+      imageUrl <- movie$image
+      download.file(imageUrl,'image.jpg', mode = 'wb')
+      
+      cat('Posting to twitter:', text, '\n')
+      rtweet::post_tweet(
+        status = text,
+        media = 'image.jpg',
+        token = twitter_token
+      )
     } else {
-      text <- sprintf('%s %s', text, url)
+      cat('No post for', title, 'as it has been posted before', '\n')
     }
-    
-    # download image
-    imageUrl <- movie$image
-    download.file(imageUrl,'image.jpg', mode = 'wb')
-    
-    cat('Posting to twitter:', text, '\n')
-    rtweet::post_tweet(
-      status = text,
-      media = 'image.jpg',
-      token = twitter_token
-    )
-    
     Sys.sleep(5)
   }
   
