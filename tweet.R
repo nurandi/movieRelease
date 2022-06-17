@@ -70,5 +70,5 @@ if(nReleaseToday > 0){
   }
   
 } else {
-  cat('No movie release today', todayDate', '\n')
+  cat('No movie release today', todayDate, '\n')
 }
