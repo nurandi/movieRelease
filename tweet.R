@@ -17,6 +17,8 @@ twitter_token <- rtweet::create_token(
   set_renv         = FALSE
 )
 
+rtweet::post_tweet(status = "test test 123", token = twitter_token)
+
 # get timelines
 myTimelines <- get_my_timeline(token = twitter_token)$text
 
