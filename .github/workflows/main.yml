@@ -2,7 +2,7 @@ name: Scrape and Tweet Today Movie Release
 
 on:
   schedule:
-    - cron: '0/15 * * * *'
+    - cron: '15 1/6 * * *'
   workflow_dispatch:
 
 jobs:
