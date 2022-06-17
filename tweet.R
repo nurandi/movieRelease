@@ -20,7 +20,9 @@ twitter_token <- rtweet::create_token(
 rtweet::post_tweet(status = "test test 123", token = twitter_token)
 
 # get timelines
-myTimelines <- rtweet::get_my_timeline(token = twitter_token)$text
+# myTimelines <- rtweet::get_my_timeline(token = twitter_token)$text
+myTimelines <- rtweet::get_timeline(Sys.getenv("TWITTER_USER_NAME"), token = twitter_token)
+myTimelines <- myTimelines$text
 
 todayDate <- format(Sys.Date(), '%d %B %Y')
 query <- list(releaseDate = todayDate)
