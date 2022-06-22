@@ -5,7 +5,7 @@ library(jsonlite)
 # step 1: get movie URL from release calendar
 
 countryId <- 'ID'
-coutryName <- 'Indonesia'
+countryName <- 'Indonesia'
 
 calendarUrl <- paste('https://www.imdb.com/calendar?region', countryId, sep = '=')
 
@@ -63,7 +63,7 @@ if(nUnscraped > 0){
     movieReleaseDate <- read_html(movieReleaseUrl) %>%
       html_element('#releaseinfo_content') %>% 
       html_table() %>% 
-      subset(X1 == coutryName) %>% `[[`(1,2)
+      subset(X1 == countryName & (is.na(X3) | X3 == '')) %>% `[[`(1,2)
     movieDetail$releaseDate <- movieReleaseDate
     
     # insert
