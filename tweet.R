@@ -40,7 +40,7 @@ if(nReleaseToday > 0){
     cat('\nChecking and preparing post for:', title,'\n')
     
     # post only if it hasnt posted before
-    if(sum(grepl(sprintf('%s (%s)', title, todayDate), myTimelines)) > 0 ){
+    if(sum(grepl(sprintf('%s (%s)', title, todayDate), myTimelines)) == 0 ){
       description <- HTMLdecode(movie$description)
       url <- paste0('imdb.com', movie$url)
       text <- sprintf('🎦 %s (%s) 📒 %s', title, todayDate, description) 
