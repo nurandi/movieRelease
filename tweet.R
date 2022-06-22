@@ -63,10 +63,14 @@ if(nReleaseToday > 0){
         media = 'image.jpg',
         token = twitter_token
       )
+      
+      if(i < nReleaseToday){
+        Sys.sleep(20*60)
+      }
+      
     } else {
       cat('No post for', title, 'as it has been posted before', '\n')
     }
-    Sys.sleep(20*60)
   }
   
 } else {
