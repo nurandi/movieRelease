@@ -58,15 +58,34 @@ if(nReleaseToday > 0){
       download.file(imageUrl,'image.jpg', mode = 'wb')
       
       cat('Posting to twitter:', text, '\n')
-      rtweet::post_tweet(
-        status = text,
-        media = 'image.jpg',
-        token = twitter_token
-      )
       
-      if(i < nReleaseToday){
-        Sys.sleep(20*60)
-      }
+      tryCatch(
+        expr = {
+          rtweet::post_tweet(
+            status = text,
+            media = 'image.jpg',
+            token = twitter_token
+          )
+          message('Tweet posted with media!')
+        },
+        error = function(e){
+          print(e)
+          rtweet::post_tweet(
+            status = text,
+            token = twitter_token
+          )
+          message('Tweet posted without media!')
+        },
+        warning = function(w){
+          message('Caught an warning!')
+          print(w)
+        },
+        finally = {
+          if(i < nReleaseToday){
+            Sys.sleep(5*60)
+          }
+        }
+      ) 
       
     } else {
       cat('No post for', title, 'as it has been posted before', '\n')
