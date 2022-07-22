@@ -1,7 +1,9 @@
-library(rtweet)
-library(jsonlite)
-library(mongolite)
-library(textutils)
+suppressWarnings(suppressMessages({
+  library(rtweet)
+  library(jsonlite)
+  library(mongolite)
+  library(textutils)
+}))
 
 conn_string <- Sys.getenv("MONGO_CONNECTION_STRING")
 mongo_movie <- mongo(collection = Sys.getenv("MONGO_COLLECTION_NAME"),
@@ -64,6 +66,7 @@ if(nReleaseToday > 0){
           rtweet::post_tweet(
             status = text,
             media = 'image.jpg',
+            media_alt_text = title,
             token = twitter_token
           )
           message('Tweet posted with media!')
