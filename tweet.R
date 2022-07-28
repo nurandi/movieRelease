@@ -55,16 +55,16 @@ if(nReleaseToday > 0){
         text <- sprintf('%s %s', text, url)
       }
       
-      # download image
-      imageUrl <- movie$image
-      
-      cat('Download image from:', imageUrl, '\n')
-      download.file(imageUrl,'image.jpg', mode = 'wb')
-      
       cat('Posting to twitter:', text, '\n')
       
       tryCatch(
         expr = {
+          # download image
+          imageUrl <- movie$image
+          
+          cat('Download image from:', imageUrl, '\n')
+          download.file(imageUrl,'image.jpg', mode = 'wb')
+          
           rtweet::post_tweet(
             status = text,
             media = 'image.jpg',
