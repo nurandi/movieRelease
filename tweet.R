@@ -57,6 +57,8 @@ if(nReleaseToday > 0){
       
       # download image
       imageUrl <- movie$image
+      
+      cat('Download image from:', imageUrl, '\n')
       download.file(imageUrl,'image.jpg', mode = 'wb')
       
       cat('Posting to twitter:', text, '\n')
