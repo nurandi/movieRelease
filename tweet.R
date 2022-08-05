@@ -51,8 +51,8 @@ if(nReleaseToday > 0){
       # if text too long (>280)
       max_text <- 280
       tags <- '#movie #imdb'
-      if((nchar(text) + nchar(url) + nchar(tags) + 1) > max_text){
-        text <- sprintf('%s~ %s %s', substr(text,1,(max_text-nchar(url)-nchar(tags)-2)), tags, url)
+      if((nchar(text) + nchar(url) + nchar(tags) + 2) > max_text){
+        text <- sprintf('%s~ %s %s', substr(text,1,(max_text-nchar(url)-nchar(tags)-3)), tags, url)
       } else {
         text <- sprintf('%s %s %s', text, tags, url)
       }
