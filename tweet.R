@@ -26,6 +26,7 @@ myTimelines <- myTimelines$text
 
 tz <- 7
 todayDate <- format(Sys.time() +tz*60*60, '%d %B %Y') #WIB+7
+todayDate <- sub('0', '', todayDate)
 
 # get data from mongo
 query <- list(releaseDate = todayDate)
@@ -35,7 +36,7 @@ nReleaseToday <- nrow(releaseToday)
 if(nReleaseToday > 0){
   
   cat('Found', nReleaseToday, 'new movie release today', todayDate, '\n')
-
+  
   for(i in 1:nReleaseToday){
     movie <- releaseToday[i,]
     title <- toupper(HTMLdecode(movie$name))
