@@ -26,7 +26,7 @@ myTimelines <- myTimelines$text
 
 tz <- 7
 todayDate <- format(Sys.time() +tz*60*60, '%d %B %Y') #WIB+7
-todayDate <- sub('0', '', todayDate)
+todayDate <- sub('^0', '', todayDate)
 
 # get data from mongo
 query <- list(releaseDate = todayDate)
